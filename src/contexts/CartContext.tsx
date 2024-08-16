@@ -86,6 +86,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const removeItem = (productId: number) => {
     try {
+      // save a copy of cart for undo
+      const tempCart = { ...cart };
       setCart((prevCart) => {
         const { [productId]: _, ...rest } = prevCart;
 
@@ -93,7 +95,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         return rest;
       });
 
-      toast.success("Product removed from cart");
+      toast.success("Product removed from cart", {
+        action: {
+          label: "Undo",
+          onClick: () => {
+            setCart(tempCart);
+            localStorage.setItem("cart", JSON.stringify(tempCart));
+          },
+        },
+      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to remove product from cart");
@@ -111,8 +121,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         action: {
           label: "Undo",
           onClick: () => {
-            console.log("Cart cleared");
-
             setCart(tempCart);
             localStorage.setItem("cart", JSON.stringify(tempCart));
           },

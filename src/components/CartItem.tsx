@@ -27,9 +27,9 @@ const CartItem = ({
           {/* cost of the product (with quantity) */}
           <p className="text-sm">
             <CountUp
-              start={product.price * (quantity - 1)}
+              start={0}
               end={product.price * quantity}
-              preserveValue={true}
+              preserveValue
               prefix="$"
               delay={0}
             />
