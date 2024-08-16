@@ -39,7 +39,8 @@ const CartItem = ({
       <div className="flex items-center space-x-4 text-my-text-300">
         <button
           onClick={() => updateQuantity(product.id, quantity - 1)}
-          className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl"
+          className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl disabled:opacity-50  disabled:hover:bg-my-primary-800 disabled:hover:text-my-text-100"
+          disabled={quantity === 1}
         >
           -
         </button>

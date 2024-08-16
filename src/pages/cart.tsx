@@ -52,14 +52,14 @@ export default function Cart() {
             <p className="text-xl">Your cart is empty.</p>
             <Link
               href="/"
-              className="mt-4 inline-block text-[#ffd84d] bg-black px-6 py-2 rounded-full font-semibold hover:bg-[#0c0c03] transition-colors duration-300"
+              className="mt-4 inline-block text-white bg-my-primary-600 hover:bg-my-primary-500 px-6 py-2 rounded-full font-semibold transition-colors duration-300"
             >
               Start Shopping
             </Link>
           </div>
         ) : (
-          <div className="flex gap-16">
-            <div className="space-y-6 w-2/3">
+          <div className="flex flex-col gap-16 lg:flex-row">
+            <div className="space-y-6 w-full lg:w-2/3">
               {products.map((product) => {
                 const quantity = cart[product.id];
 
@@ -74,7 +74,7 @@ export default function Cart() {
                 );
               })}
             </div>
-            <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg w-1/3 h-max">
+            <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg h-max w-full lg:w-1/3">
               <p className="text-2xl font-normal mb-4 text-my-text-950">
                 Total:{" "}
                 <CountUp
