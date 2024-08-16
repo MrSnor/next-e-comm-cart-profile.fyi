@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Product } from "../types";
 import CartItem from "@/components/CartItem";
+import CountUp from "react-countup";
 
 export default function Cart() {
   const { cart, updateQuantity, removeItem } = useCart();
@@ -64,7 +65,7 @@ export default function Cart() {
             </div>
             <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg w-1/3 h-max">
               <p className="text-2xl font-normal mb-4 text-my-text-950">
-                Total: ${calculateTotal().toFixed(2)}
+                Total: <CountUp start={0} end={calculateTotal()} preserveValue prefix="$" />
               </p>
               <button className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-xl hover:bg-[#0c0c03] transition-colors duration-300">
                 Proceed to Checkout

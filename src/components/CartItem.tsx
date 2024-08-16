@@ -1,6 +1,7 @@
 import { Product } from "@/types";
 // import { TrashIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/20/solid";
+import CountUp from "react-countup";
 
 const CartItem = ({
   product,
@@ -25,7 +26,13 @@ const CartItem = ({
           <h2 className="text-lg font-medium mb-1">{product.title}</h2>
           {/* cost of the product (with quantity) */}
           <p className="text-sm">
-            ${(product.price * Number(quantity)).toFixed(2)}
+            <CountUp
+              start={product.price * (quantity - 1)}
+              end={product.price * quantity}
+              preserveValue={true}
+              prefix="$"
+              delay={0}
+            />
           </p>
         </div>
       </div>
