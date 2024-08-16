@@ -29,9 +29,7 @@ export default function Home() {
             href="/cart"
             className="origin-top-right transition p-2 rounded-full hover:bg-my-primary-500 hover:text-my-text-950 [&:hover_span]:-top-4 [&:hover_span]:-right-4"
           >
-            <CartIcon
-              itemCount={Object.values(cart).reduce((a, b) => a + b, 0)}
-            />
+            <CartIcon itemCount={Object.keys(cart).length || 0} />
           </Link>
         </header>
         <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
