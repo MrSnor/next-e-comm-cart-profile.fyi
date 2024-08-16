@@ -14,12 +14,6 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        "cm-text": "#0c0c03",
-        "cm-background": "#ffbf00",
-        "cm-primary": "#000000",
-        "cm-secondary": "#b29736",
-        "cm-accent": "#000000",
-        // another set to try - https://www.realtimecolors.com/dashboard?colors=050507-f8f8fb-5a59b4-9d9cdc-706ed7&fonts=Hahmlet-Hahmlet
         "my-text": {
           50: "#0b0b0f",
           100: "#15151e",
@@ -45,6 +39,7 @@ const config: Config = {
           800: "#bebeda",
           900: "#dfdfec",
           950: "#efeff6",
+          1000: "#f8f8fb",
         },
         "my-primary": {
           50: "#080812",
@@ -85,6 +80,10 @@ const config: Config = {
           900: "#d7d7f4",
           950: "#ebebfa",
         },
+      },
+      fontFamily: {
+        hahmlet: ["Hahmlet", "serif"],
+        notoSans: ["Noto Sans", "sans-serif"],
       },
     },
   },

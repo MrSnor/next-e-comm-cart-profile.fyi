@@ -36,8 +36,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       localStorage.setItem(
         "cart",
         JSON.stringify({
-          ...localCart,
           ...cart,
+          ...localCart,
         })
       );
     }

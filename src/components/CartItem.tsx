@@ -1,4 +1,6 @@
 import { Product } from "@/types";
+// import { TrashIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/20/solid";
 
 const CartItem = ({
   product,
@@ -12,37 +14,40 @@ const CartItem = ({
   removeItem: (id: number) => void;
 }) => {
   return (
-    <div className="flex items-center justify-between bg-white p-6 rounded-lg shadow-lg">
+    <div className="flex items-center justify-between bg-my-accent-950 p-6 py-2 rounded-lg shadow-md hover:shadow transition">
       <div className="flex items-center space-x-6">
         <img
           src={product.thumbnail}
           alt={product.title}
-          className="w-24 h-24 object-cover rounded-lg"
+          className="w-16 h-16 object-cover rounded-lg"
         />
         <div>
-          <h2 className="text-xl font-semibold mb-1">{product.title}</h2>
-          <p className="text-2xl font-bold">${product.price.toFixed(2)}</p>
+          <h2 className="text-lg font-medium mb-1">{product.title}</h2>
+          {/* cost of the product (with quantity) */}
+          <p className="text-sm">
+            ${(product.price * Number(quantity)).toFixed(2)}
+          </p>
         </div>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 text-my-text-300">
         <button
           onClick={() => updateQuantity(product.id, quantity - 1)}
-          className="bg-[#ffd84d] text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-xl"
+          className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl"
         >
           -
         </button>
-        <span className="text-xl font-semibold">{quantity}</span>
+        <span className="text-sm font-semibold">{quantity}</span>
         <button
           onClick={() => updateQuantity(product.id, quantity + 1)}
-          className="bg-[#ffd84d] text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-xl"
+          className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl"
         >
           +
         </button>
         <button
           onClick={() => removeItem(product.id)}
-          className="text-red-500 hover:text-red-700 font-semibold"
+          className=" hover:text-red-500 font-semibold transition-colors duration-300"
         >
-          Remove
+          <TrashIcon className="w-6 h-6" />
         </button>
       </div>
     </div>

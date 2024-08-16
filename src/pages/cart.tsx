@@ -32,11 +32,9 @@ export default function Cart() {
   };
 
   return (
-    <div className="min-h-screen bg-my-background-1000 text-cm-text">
+    <div className="min-h-screen bg-my-background-1000 text-my-text-100">
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-semibold mb-12 font-hahmlet">
-          Your Shopping Cart
-        </h1>
+        <h1 className="text-4xl font-semibold mb-12">Your Shopping Cart</h1>
         {products.length === 0 ? (
           <div className="bg-white rounded-lg p-8 shadow-lg">
             <p className="text-xl">Your cart is empty.</p>
@@ -48,31 +46,31 @@ export default function Cart() {
             </Link>
           </div>
         ) : (
-          <>
-            <div className="space-y-6">
+          <div className="flex gap-16">
+            <div className="space-y-6 w-2/3">
               {products.map((product) => {
-                console.log(product);
+                const quantity = cart[product.id];
 
                 return (
                   <CartItem
                     key={product.id}
                     product={product}
-                    quantity={cart[product.id]}
+                    quantity={quantity}
                     updateQuantity={updateQuantity}
                     removeItem={removeItem}
                   />
                 );
               })}
             </div>
-            <div className="mt-12 bg-white p-8 rounded-lg shadow-lg">
-              <p className="text-2xl font-bold mb-4">
+            <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg w-1/3 h-max">
+              <p className="text-2xl font-normal mb-4 text-my-text-950">
                 Total: ${calculateTotal().toFixed(2)}
               </p>
-              <button className="w-full bg-black text-[#ffd84d] px-6 py-3 rounded-full font-semibold text-xl hover:bg-[#0c0c03] transition-colors duration-300">
+              <button className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-xl hover:bg-[#0c0c03] transition-colors duration-300">
                 Proceed to Checkout
               </button>
             </div>
-          </>
+          </div>
         )}
         <Link
           href="/"
@@ -81,18 +79,6 @@ export default function Cart() {
           ← Continue Shopping
         </Link>
       </div>
-    </div>
-  );
-}
-
-
-
-// example jsx component
-function ExampleDiv({ name, age }: { name: string; age: number }) {
-  return (
-    <div>
-      <h1>{name}</h1>
-      <h1>{age}</h1>
     </div>
   );
 }

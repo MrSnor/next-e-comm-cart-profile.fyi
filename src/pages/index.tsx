@@ -18,13 +18,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-cm-background text-cm-text">
+    <div className="min-h-screen bg-my-background-1000 text-my-text-100">
       <div className="container mx-auto px-4">
         <header className="flex justify-between items-center py-8">
-          <h1 className="text-4xl font-bold capitalize select-none">
+          <h1 className="text-4xl font-semibold capitalize select-none font-hahmlet bg-my-background-500 text-white px-4 py-2 rounded-lg">
             D-Mart @ your service
           </h1>
-          <Link href="/cart" className="hover:scale-110 transition">
+          <Link
+            href="/cart"
+            className="origin-top-right transition p-2 rounded-full hover:bg-my-primary-500 hover:text-my-text-950 [&:hover_span]:-top-4 [&:hover_span]:-right-4"
+          >
             <CartIcon
               itemCount={Object.values(cart).reduce((a, b) => a + b, 0)}
             />
