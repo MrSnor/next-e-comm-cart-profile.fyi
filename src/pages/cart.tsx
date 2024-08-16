@@ -2,6 +2,7 @@ import { useCart } from "../contexts/CartContext";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Product } from "../types";
+import CartItem from "@/components/CartItem";
 
 export default function Cart() {
   const { cart, updateQuantity, removeItem } = useCart();
@@ -31,9 +32,11 @@ export default function Cart() {
   };
 
   return (
-    <div className="min-h-screen bg-[#ffd84d] text-cm-text">
+    <div className="min-h-screen bg-my-background-1000 text-cm-text">
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-12">Your Shopping Cart</h1>
+        <h1 className="text-4xl font-semibold mb-12 font-hahmlet">
+          Your Shopping Cart
+        </h1>
         {products.length === 0 ? (
           <div className="bg-white rounded-lg p-8 shadow-lg">
             <p className="text-xl">Your cart is empty.</p>
@@ -47,55 +50,19 @@ export default function Cart() {
         ) : (
           <>
             <div className="space-y-6">
-              {products.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex items-center justify-between bg-white p-6 rounded-lg shadow-lg"
-                >
-                  <div className="flex items-center space-x-6">
-                    <img
-                      src={product.thumbnail}
-                      alt={product.title}
-                      className="w-24 h-24 object-cover rounded-lg"
-                    />
-                    <div>
-                      <h2 className="text-xl font-semibold mb-1">
-                        {product.title}
-                      </h2>
-                      <p className="text-2xl font-bold">
-                        ${product.price.toFixed(2)}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <button
-                      onClick={() =>
-                        updateQuantity(product.id, (cart[product.id] || 0) - 1)
-                      }
-                      className="bg-[#ffd84d] text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-xl"
-                    >
-                      -
-                    </button>
-                    <span className="text-xl font-semibold">
-                      {cart[product.id] || 0}
-                    </span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(product.id, (cart[product.id] || 0) + 1)
-                      }
-                      className="bg-[#ffd84d] text-black w-8 h-8 rounded-full flex items-center justify-center font-bold text-xl"
-                    >
-                      +
-                    </button>
-                    <button
-                      onClick={() => removeItem(product.id)}
-                      className="text-red-500 hover:text-red-700 font-semibold"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              ))}
+              {products.map((product) => {
+                console.log(product);
+
+                return (
+                  <CartItem
+                    key={product.id}
+                    product={product}
+                    quantity={cart[product.id]}
+                    updateQuantity={updateQuantity}
+                    removeItem={removeItem}
+                  />
+                );
+              })}
             </div>
             <div className="mt-12 bg-white p-8 rounded-lg shadow-lg">
               <p className="text-2xl font-bold mb-4">
@@ -114,6 +81,18 @@ export default function Cart() {
           ← Continue Shopping
         </Link>
       </div>
+    </div>
+  );
+}
+
+
+
+// example jsx component
+function ExampleDiv({ name, age }: { name: string; age: number }) {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <h1>{age}</h1>
     </div>
   );
 }
