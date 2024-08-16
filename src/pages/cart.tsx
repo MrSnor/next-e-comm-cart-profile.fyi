@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Product } from "../types";
 import CartItem from "@/components/CartItem";
 import CountUp from "react-countup";
+import { Toaster } from "sonner";
 
 export default function Cart() {
   const { cart, updateQuantity, removeItem } = useCart();
@@ -79,6 +80,7 @@ export default function Cart() {
         >
           ← Continue Shopping
         </Link>
+        <Toaster position="bottom-center" richColors />
       </div>
     </div>
   );

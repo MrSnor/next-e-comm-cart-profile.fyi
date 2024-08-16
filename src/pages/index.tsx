@@ -4,6 +4,7 @@ import CartIcon from "../components/CartIcon";
 import { Product } from "../types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
 
 export default function Home() {
   const { cart, addToCart } = useCart();
@@ -19,7 +20,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-my-background-1000 text-my-text-100">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 pb-28">
         <header className="flex justify-between items-center py-8">
           <h1 className="text-4xl font-semibold capitalize select-none font-hahmlet bg-my-background-500 text-white px-4 py-2 rounded-lg">
             D-Mart @ your service
@@ -42,6 +43,7 @@ export default function Home() {
             />
           ))}
         </main>
+        <Toaster position="bottom-center" richColors />
       </div>
     </div>
   );

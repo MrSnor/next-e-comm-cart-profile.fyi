@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "sonner";
 
 interface CartContextType {
   cart: { [key: number]: number };
@@ -35,6 +36,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
       localStorage.setItem(
         "cart",
+        // by having "cart" before "localCart", it will prevent adding existing products when clicked on "Add to cart"
         JSON.stringify({
           ...cart,
           ...localCart,
@@ -44,10 +46,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [cart]);
 
   const addToCart = (productId: number) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [productId]: (prevCart[productId] || 0) + 1,
-    }));
+    try {
+      setCart((prevCart) => ({
+        ...prevCart,
+        [productId]: (prevCart[productId] || 0) + 1,
+      }));
+      toast.success("Product added to cart");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add product to cart");
+    }
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
@@ -76,12 +84,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const removeItem = (productId: number) => {
-    setCart((prevCart) => {
-      const { [productId]: _, ...rest } = prevCart;
+    try {
+      setCart((prevCart) => {
+        const { [productId]: _, ...rest } = prevCart;
 
-      localStorage.setItem("cart", JSON.stringify(rest));
-      return rest;
-    });
+        localStorage.setItem("cart", JSON.stringify(rest));
+        return rest;
+      });
+
+      toast.success("Product removed from cart");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to remove product from cart");
+    }
   };
 
   return (
