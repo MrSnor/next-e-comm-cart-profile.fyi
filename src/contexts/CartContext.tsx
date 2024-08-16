@@ -6,6 +6,7 @@ interface CartContextType {
   addToCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   removeItem: (productId: number) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -99,9 +100,33 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  // button for clearing the cart
+  const clearCart = () => {
+    try {
+      // save a copy of cart for undo
+      const tempCart = { ...cart };
+      setCart({});
+      localStorage.removeItem("cart");
+      toast.success("Cart cleared", {
+        action: {
+          label: "Undo",
+          onClick: () => {
+            console.log("Cart cleared");
+
+            setCart(tempCart);
+            localStorage.setItem("cart", JSON.stringify(tempCart));
+          },
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to clear cart");
+    }
+  };
+
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeItem }}
+      value={{ cart, addToCart, updateQuantity, removeItem, clearCart }}
     >
       {children}
     </CartContext.Provider>

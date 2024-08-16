@@ -20,8 +20,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-my-background-1000 text-my-text-100">
-      <div className="container mx-auto px-4 pb-28">
-        <header className="flex justify-between items-center py-8">
+      <div className="container mx-auto px-4">
+        <header className="flex justify-between items-center py-3 sticky top-0 z-10 bg-my-background-1000">
           <h1 className="text-4xl font-semibold capitalize select-none font-hahmlet bg-my-background-500 text-white px-4 py-2 rounded-lg">
             D-Mart @ your service
           </h1>
@@ -32,7 +32,7 @@ export default function Home() {
             <CartIcon itemCount={Object.keys(cart).length || 0} />
           </Link>
         </header>
-        <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-2 pb-10">
           {products.map((product) => (
             <ProductCard
               key={product.id}
