@@ -16,7 +16,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { Transition } from "@headlessui/react";
+import { cn } from "@/lib/utils";
 
 export default function Cart() {
   const { cart, updateQuantity, removeItem, clearCart } = useCart();
@@ -70,8 +71,13 @@ export default function Cart() {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel className="hover:bg-black hover:text-white">Cancel</AlertDialogCancel>
-                <AlertDialogAction className="hover:bg-red-500 hover:text-white" onClick={clearCart}>
+                <AlertDialogCancel className="hover:bg-black hover:text-white">
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  className="hover:bg-red-500 hover:text-white"
+                  onClick={clearCart}
+                >
                   Clear Cart
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -79,7 +85,14 @@ export default function Cart() {
           </AlertDialog>
         </h1>
         {products.length === 0 ? (
-          <div className="bg-white rounded-lg p-8 shadow-lg">
+          <div
+            className={cn(
+              ["flex flex-col gap-6 items-center justify-center"],
+              products.length === 0
+                ? "animate-in fade-in-0"
+                : "animate-out fade-out-0"
+            )}
+          >
             <p className="text-xl">Your cart is empty.</p>
             <Link
               href="/"
@@ -89,7 +102,14 @@ export default function Cart() {
             </Link>
           </div>
         ) : (
-          <div className="flex flex-col gap-16 lg:flex-row">
+          <div
+            className={cn(
+              ["flex flex-col gap-16 lg:flex-row"],
+              products.length === 0
+                ? "animate-in fade-in-0"
+                : "animate-out fade-out-0"
+            )}
+          >
             <div className="space-y-6 w-full lg:w-2/3">
               {products.map((product) => {
                 const quantity = cart[product.id];
