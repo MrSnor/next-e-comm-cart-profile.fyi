@@ -1,37 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 240 27% 98%;
+    --foreground: 240 17% 2%;
+    --card: 240 27% 98%;
+    --card-foreground: 240 17% 2%;
+    --popover: 240 27% 98%;
+    --popover-foreground: 240 17% 2%;
+    --primary: 241 38% 53%;
+    --primary-foreground: 240 27% 98%;
+    --secondary: 241 48% 74%;
+    --secondary-foreground: 240 17% 2%;
+    --muted: 240 27% 20%;
+    --muted-foreground: 240 18% 70%;
+    --accent: 241 57% 64%;
+    --accent-foreground: 240 17% 2%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 240 17% 2%;
+    --border: 240 27% 20%;
+    --input: 240 27% 20%;
+    --ring: 241 57% 40%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 20% 2%;
+    --foreground: 240 20% 98%;
+    --card: 240 20% 2%;
+    --card-foreground: 240 20% 98%;
+    --popover: 240 20% 2%;
+    --popover-foreground: 240 20% 98%;
+    --primary: 241 38% 47%;
+    --primary-foreground: 240 20% 98%;
+    --secondary: 242 48% 26%;
+    --secondary-foreground: 240 20% 98%;
+    --muted: 240 20% 80%;
+    --muted-foreground: 240 20% 98%;
+    --accent: 241 57% 36%;
+    --accent-foreground: 240 20% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 240 22% 10%;
+    --border: 240 20% 60%;
+    --input: 240 20% 80%;
+    --ring: 241 57% 60%;
   }
 }
 
-html {
-  scroll-behavior: smooth;
-  @apply font-notoSans
-}
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-}
+  html {
+    scroll-behavior: smooth;
+    @apply font-notoSans
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  body {
+    @apply bg-background text-foreground;
   }
 }

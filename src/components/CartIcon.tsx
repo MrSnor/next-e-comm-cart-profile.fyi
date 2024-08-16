@@ -20,7 +20,7 @@ export default function CartIcon({ itemCount }: CartIconProps) {
         />
       </svg>
       {itemCount > 0 && (
-        <span className="absolute -top-2 -right-2 transition-all bg-my-primary-500 text-my-text-950 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+        <span className="absolute -top-2 -right-2 transition-all bg-my-primary-500 text-my-text-950 rounded-full w-5 h-5 aspect-square flex items-center justify-center text-xs font-bold p-2">
           {itemCount}
         </span>
       )}
