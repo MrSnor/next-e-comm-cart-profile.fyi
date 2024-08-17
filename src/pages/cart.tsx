@@ -65,7 +65,7 @@ export default function Cart() {
         case DISCOUNT_TYPES.PERCENTAGE:
           discount = subTotal * (discObj.discount / 100);
           toast.success(`You've saved $${discount.toFixed(2)} 🎉!`);
-          
+
           setIsDiscountCodeValid(true);
           break;
         case DISCOUNT_TYPES.FLAT:
@@ -164,11 +164,12 @@ export default function Cart() {
   }, [cart]);
 
   // recalculate the cart total when products or discount code changes
+  // Note - the above useEffect is triggered on every cart change, then it updates the products array which is a dependency in this useEffect (it can easily cause dependency loop and cause multiple re-renders)
   useEffect(() => {
     if (products.length > 0) {
       updateCartSummary(discountCode);
     }
-  }, [products, discountCode, cart]);
+  }, [products, discountCode]);
 
   return (
     <div className="min-h-screen bg-my-background-1000 text-my-text-100">
@@ -337,5 +338,3 @@ export default function Cart() {
     </div>
   );
 }
-
-
