@@ -71,7 +71,6 @@ export default function Cart() {
       switch (discObj.discountType) {
         case DISCOUNT_TYPES.PERCENTAGE:
           discount = subTotal * (discObj.discount / 100);
-          toast.success(`Discount applied: ${discObj.discount}%`);
           break;
         case DISCOUNT_TYPES.FLAT:
           discount = discObj.discount;
@@ -94,13 +93,20 @@ export default function Cart() {
   };
 
   // handle discount code updates
-  const handleDiscountCodeChange = (
+  const handleDiscountCodeKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (e.key === "Enter") {
-      const code = e.currentTarget.value.toUpperCase();
+      const code = e.currentTarget.value.trim().toUpperCase();
 
       const discObj = discountData.find((item) => item.code === code);
+
+      // if code is same as current discount code
+      if (discObj && discountCode === code) {
+        toast.info("Discount coupon already applied");
+        setIsDiscountCodeValid(true);
+        return;
+      }
       switch (discObj?.discountType) {
         case DISCOUNT_TYPES.PERCENTAGE:
           toast.success(`Discount applied: ${discObj.discount}%`);
@@ -111,12 +117,19 @@ export default function Cart() {
           setIsDiscountCodeValid(true);
           break;
         default:
-          toast.warning("Invalid discount code");
+          toast.error("Invalid discount coupon");
           setIsDiscountCodeValid(false);
           break;
       }
 
       setDiscountCode(code);
+    }
+  };
+
+  const handleDiscountCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.trim().toUpperCase() === "") {
+      setDiscountCode("");
+      setIsDiscountCodeValid(null);
     }
   };
 
@@ -211,7 +224,8 @@ export default function Cart() {
                   </p>
                   <input
                     type="text"
-                    onKeyDown={handleDiscountCodeChange}
+                    onKeyDown={handleDiscountCodeKeyDown}
+                    onChange={handleDiscountCodeChange}
                     placeholder="Enter discount code"
                     className="bg-my-background-900 text-my-text-100 px-4 py-1 rounded-full font-normal text-base uppercase
                   placeholder:text-sm relative"
@@ -252,7 +266,7 @@ export default function Cart() {
                       start={0}
                       end={cartSummary.discount}
                       preserveValue
-                      prefix="$"
+                      prefix={cartSummary.discount > 0 ? "-$" : "$"}
                       className=""
                     />
                   </p>
