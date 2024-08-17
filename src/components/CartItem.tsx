@@ -4,6 +4,7 @@ import { TrashIcon } from "@heroicons/react/20/solid";
 import CountUp from "react-countup";
 import { Transition } from "@headlessui/react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const CartItem = ({
   product,
@@ -31,10 +32,12 @@ const CartItem = ({
         ])}
       >
         <div className="flex items-center space-x-6">
-          <img
+          <Image
             src={product.thumbnail}
             alt={product.title}
             className="w-16 h-16 object-cover rounded-lg"
+            width={64}
+            height={64}
           />
           <div>
             <h2 className="text-lg font-medium mb-1">{product.title}</h2>

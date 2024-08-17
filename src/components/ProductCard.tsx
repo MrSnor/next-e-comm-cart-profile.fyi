@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "../types";
 import { useCart } from "@/contexts/CartContext";
+import Image from "next/image";
 
 interface ProductCardProps {
   product: Product;
@@ -25,10 +26,12 @@ export default function ProductCard({ product, addToCart }: ProductCardProps) {
       className="bg-my-accent-950 rounded-lg overflow-hidden transform transition-all duration-300 ring-2 ring-transparent hover:ring-my-accent-700
     [&:hover_button[aria-label=add-to-cart]]:ring-transparent"
     >
-      <img
+      <Image
         src={product.thumbnail}
         alt={product.title}
         className="w-full h-48 object-contain"
+        width={300}
+        height={300}
       />
       <div className="p-6 flex flex-col">
         <h2 className="text-lg font-semibold mb-2 truncate">{product.title}</h2>
