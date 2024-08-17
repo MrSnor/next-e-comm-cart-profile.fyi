@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 // constants for discount types
 const DISCOUNT_TYPES = {
@@ -27,7 +28,7 @@ const DISCOUNT_TYPES = {
 
 const discountData = [
   {
-    code: "FIRST10",
+    code: "FIRSTME",
     discountType: DISCOUNT_TYPES.PERCENTAGE,
     discount: 50,
   },
@@ -39,7 +40,7 @@ const discountData = [
   {
     code: "HBD26",
     discountType: DISCOUNT_TYPES.FLAT,
-    discount: 1000,
+    discount: 200,
   },
 ];
 
@@ -179,6 +180,7 @@ export default function Cart() {
                 : "animate-out fade-out-0"
             )}
           >
+            {/* cart items */}
             <div className="space-y-6 w-full lg:w-3/5">
               {products.map((product) => {
                 const quantity = cart[product.id];
@@ -194,77 +196,85 @@ export default function Cart() {
                 );
               })}
             </div>
-            <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg h-max w-full lg:w-2/5 text-lg">
-              {/* Discount code input */}
-              <div className="flex items-center justify-between mb-8 text-my-text-950 gap-4 relative">
-                <p className="font-normal whitespace-nowrap text-base">
-                  Discount Code
-                </p>
-                <input
-                  type="text"
-                  onKeyDown={handleDiscountCodeChange}
-                  placeholder="Enter discount code"
-                  className="bg-my-background-900 text-my-text-100 px-4 py-1 rounded-full font-normal text-base uppercase
+            <div className="w-full lg:w-2/5 space-y-5">
+              {/* discounts available */}
+              <DiscountAlert />
+              {/* cart summary */}
+              <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg h-max  text-lg">
+                <h1 className="text-2xl font-semibold text-my-text-950 mb-4">
+                  Cart Summary
+                </h1>
+                {/* Discount code input */}
+                <div className="flex items-center justify-between mb-8 text-my-text-950 gap-4 relative">
+                  <p className="font-normal whitespace-nowrap text-base">
+                    Discount Code
+                  </p>
+                  <input
+                    type="text"
+                    onKeyDown={handleDiscountCodeChange}
+                    placeholder="Enter discount code"
+                    className="bg-my-background-900 text-my-text-100 px-4 py-1 rounded-full font-normal text-base uppercase
                   placeholder:text-sm relative"
-                  maxLength={10}
-                />
-                <span className="text-sm text-my-text-800 absolute right-[5%] lg:right-[10%] top-10">
-                  (Press Enter to apply)
-                </span>
-                {/* show a tick or cross depending on whether or not the discount code is valid */}
-                {isDiscountCodeValid !== null && (
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xl rounded-full [&_svg]:rounded-full [&_svg]:w-5 [&_svg]:h-5 [&_svg]:p-1 ">
-                    {isDiscountCodeValid ? (
-                      <CheckIcon className="bg-green-600" />
-                    ) : (
-                      <XMarkIcon className="bg-red-600" />
-                    )}
+                    maxLength={10}
+                  />
+                  <span className="text-sm text-my-text-800 absolute right-[5%] lg:right-[10%] top-10">
+                    (Press Enter to apply)
                   </span>
-                )}
-              </div>
+                  {/* show a tick or cross depending on whether or not the discount code is valid */}
+                  {isDiscountCodeValid !== null && (
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xl rounded-full [&_svg]:rounded-full [&_svg]:w-5 [&_svg]:h-5 [&_svg]:p-1 ">
+                      {isDiscountCodeValid ? (
+                        <CheckIcon className="bg-green-600" />
+                      ) : (
+                        <XMarkIcon className="bg-red-600" />
+                      )}
+                    </span>
+                  )}
+                </div>
 
-              {/* subtotal */}
-              <p className="text-base mb-4 text-my-text-950 flex items-center justify-between">
-                Subtotal{" "}
-                <CountUp
-                  start={0}
-                  end={cartSummary.subTotal}
-                  preserveValue
-                  prefix="$"
-                  className=""
-                />
-              </p>
-
-              {/* discount */}
-              {
+                {/* subtotal */}
                 <p className="text-base mb-4 text-my-text-950 flex items-center justify-between">
-                  Discount{" "}
+                  Subtotal{" "}
                   <CountUp
                     start={0}
-                    end={cartSummary.discount}
+                    end={cartSummary.subTotal}
                     preserveValue
                     prefix="$"
                     className=""
                   />
                 </p>
-              }
 
-              {/* total */}
-              <p className="mb-4 text-my-text-950 flex items-center justify-between text-xl">
-                Total{" "}
-                <CountUp
-                  start={0}
-                  end={cartSummary.total}
-                  preserveValue
-                  prefix="$"
-                  className=""
-                />
-              </p>
+                {/* discount */}
+                {
+                  <p className="text-base mb-4 text-my-text-950 flex items-center justify-between">
+                    Discount{" "}
+                    <CountUp
+                      start={0}
+                      end={cartSummary.discount}
+                      preserveValue
+                      prefix="$"
+                      className=""
+                    />
+                  </p>
+                }
 
-              {/* proceed to checkout button */}
-              <button className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-lg hover:bg-[#0c0c03] transition-colors duration-300">
-                Proceed to Checkout
-              </button>
+                {/* total */}
+                <p className="mb-4 text-my-text-950 flex items-center justify-between text-xl">
+                  Total{" "}
+                  <CountUp
+                    start={0}
+                    end={cartSummary.total}
+                    preserveValue
+                    prefix="$"
+                    className=""
+                  />
+                </p>
+
+                {/* proceed to checkout button */}
+                <button className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-lg hover:bg-[#0c0c03] transition-colors duration-300">
+                  Proceed to Checkout
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -315,5 +325,28 @@ function ClearCartButton({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+  );
+}
+
+function DiscountAlert() {
+  return (
+    <Alert className="border-0 ring-2 ring-my-accent-800 bg-my-accent-950">
+      <div>
+        <AlertTitle>Available Discount Coupons</AlertTitle>
+        <AlertDescription>
+          {discountData.map((item) => (
+            <div key={item.code} className="mt-2">
+              <span className="select-all selection:bg-my-background-700 selection:text-my-text-950 font-semibold">
+                {item.code}
+              </span>{" "}
+              -{" "}
+              {item.discountType === "percentage"
+                ? `${item.discount}% off`
+                : `$${item.discount} off`}
+            </div>
+          ))}
+        </AlertDescription>
+      </div>
+    </Alert>
   );
 }
