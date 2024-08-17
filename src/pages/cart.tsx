@@ -64,7 +64,6 @@ export default function Cart() {
       switch (discObj.discountType) {
         case DISCOUNT_TYPES.PERCENTAGE:
           discount = subTotal * (discObj.discount / 100);
-          toast.success(`You've saved $${discount.toFixed(2)} 🎉!`);
 
           setIsDiscountCodeValid(true);
           break;
@@ -75,7 +74,6 @@ export default function Cart() {
           if (discount > subTotal) {
             discount = subTotal;
           }
-          toast.success(`You've saved $${discount.toFixed(2)} 🎉!`);
           setIsDiscountCodeValid(true);
           break;
         default:
@@ -83,7 +81,6 @@ export default function Cart() {
           break;
       }
     } else if (disCode !== "") {
-      toast.error("Invalid discount coupon");
       setIsDiscountCodeValid(false);
     }
 
@@ -121,14 +118,17 @@ export default function Cart() {
 
       switch (discObj?.discountType) {
         case DISCOUNT_TYPES.PERCENTAGE:
+          toast.success(`You've saved $${discObj.discount} 🎉!`);
           setIsDiscountCodeValid(true);
           break;
 
         case DISCOUNT_TYPES.FLAT:
+          toast.success(`You've saved $${discObj.discount} 🎉!`);
           setIsDiscountCodeValid(true);
           break;
 
         default:
+          toast.error("Invalid discount coupon");
           setIsDiscountCodeValid(false);
           break;
       }
