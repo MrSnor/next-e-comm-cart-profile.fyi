@@ -14,14 +14,14 @@ export function DeliveryChargeALert({
       <div>
         <AlertDescription className="flex items-center gap-2">
           <TruckIcon className="w-6 h-6 inline-block" />
-          {subTotal > 75 ? (
+          {subTotal > deliveryCharge ? (
             "Congrats! You get free standard shipping."
           ) : (
             <span>
               You&apos;re{" "}
               <CountUp
                 start={0}
-                end={subTotal - deliveryCharge}
+                end={deliveryCharge - subTotal}
                 preserveValue
                 prefix="$"
               />{" "}
