@@ -71,14 +71,26 @@ export default function Cart() {
       switch (discObj.discountType) {
         case DISCOUNT_TYPES.PERCENTAGE:
           discount = subTotal * (discObj.discount / 100);
+          toast.success(`You've saved $${discount.toFixed(2)} 🎉!`);
+          setIsDiscountCodeValid(true);
           break;
         case DISCOUNT_TYPES.FLAT:
           discount = discObj.discount;
+
+          // handle if discount is greater than subTotal
+          if (discount > subTotal) {
+            discount = subTotal;
+          }
+          toast.success(`You've saved $${discount.toFixed(2)} 🎉!`);
+          setIsDiscountCodeValid(true);
           break;
         default:
           discount = 0;
           break;
       }
+    } else if (disCode !== "") {
+      toast.error("Invalid discount coupon");
+      setIsDiscountCodeValid(false);
     }
 
     return discount;
@@ -101,23 +113,16 @@ export default function Cart() {
 
       const discObj = discountData.find((item) => item.code === code);
 
-      // if code is same as current discount code
-      if (discObj && discountCode === code) {
-        toast.info("Discount coupon already applied");
-        setIsDiscountCodeValid(true);
-        return;
-      }
       switch (discObj?.discountType) {
         case DISCOUNT_TYPES.PERCENTAGE:
-          toast.success(`Discount applied: ${discObj.discount}%`);
           setIsDiscountCodeValid(true);
           break;
+
         case DISCOUNT_TYPES.FLAT:
-          toast.success(`Discount applied: $${discObj.discount}`);
           setIsDiscountCodeValid(true);
           break;
+
         default:
-          toast.error("Invalid discount coupon");
           setIsDiscountCodeValid(false);
           break;
       }
