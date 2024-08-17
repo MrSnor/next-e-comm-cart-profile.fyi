@@ -31,7 +31,7 @@ const CartItem = ({
           "data-[leave]:duration-300 data-[leave]:data-[closed]:translate-x-full",
         ])}
       >
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-6 w-full">
           <Image
             src={product.thumbnail}
             alt={product.title}
@@ -39,41 +39,48 @@ const CartItem = ({
             width={64}
             height={64}
           />
-          <div>
-            <h2 className="text-lg font-medium mb-1">{product.title}</h2>
-            {/* cost of the product (with quantity) */}
-            <p className="text-sm">
-              <CountUp
-                start={0}
-                end={product.price * quantity}
-                preserveValue
-                prefix="$"
-                delay={0}
-              />
-            </p>
+          <div className="flex flex-col sm:flex-row w-full gap-4">
+            {/* title and price container */}
+            <div className="flex justify-between sm:flex-col gap-4 w-full">
+              <h2 className="text-base sm:text-lg font-medium mb-1">{product.title}</h2>
+              {/* cost of the product (with quantity) */}
+              <p className="text-base">
+                <CountUp
+                  start={0}
+                  end={product.price * quantity}
+                  preserveValue
+                  prefix="$"
+                  delay={0}
+                />
+              </p>
+            </div>
+            {/* cart item controls */}
+            <div className="flex items-center justify-between w-full sm:w-auto space-x-4 text-my-text-300">
+              {/* quantity controls */}
+              <div className="flex gap-4">
+                <button
+                  onClick={() => updateQuantity(product.id, quantity - 1)}
+                  className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl disabled:opacity-50  disabled:hover:bg-my-primary-800 disabled:hover:text-my-text-100"
+                  disabled={quantity === 1}
+                >
+                  -
+                </button>
+                <span className="text-sm font-semibold">{quantity}</span>
+                <button
+                  onClick={() => updateQuantity(product.id, quantity + 1)}
+                  className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl"
+                >
+                  +
+                </button>
+              </div>
+              <button
+                onClick={() => removeItem(product.id)}
+                className=" hover:text-red-500 font-semibold transition-colors duration-300"
+              >
+                <TrashIcon className="w-6 h-6" />
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center space-x-4 text-my-text-300">
-          <button
-            onClick={() => updateQuantity(product.id, quantity - 1)}
-            className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl disabled:opacity-50  disabled:hover:bg-my-primary-800 disabled:hover:text-my-text-100"
-            disabled={quantity === 1}
-          >
-            -
-          </button>
-          <span className="text-sm font-semibold">{quantity}</span>
-          <button
-            onClick={() => updateQuantity(product.id, quantity + 1)}
-            className="bg-my-primary-800 hover:bg-my-primary-600 transition-colors duration-300  hover:text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xl"
-          >
-            +
-          </button>
-          <button
-            onClick={() => removeItem(product.id)}
-            className=" hover:text-red-500 font-semibold transition-colors duration-300"
-          >
-            <TrashIcon className="w-6 h-6" />
-          </button>
         </div>
       </div>
     </Transition>

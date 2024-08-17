@@ -36,7 +36,7 @@ export function ClearCartButton({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="hover:bg-my-background-100 text-my-text-100 hover:text-my-text-950 px-6 py-2 rounded-full font-semibold transition-colors duration-300">Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={clearCart}
             className="bg-my-primary-600 hover:bg-my-primary-500 px-6 py-2 rounded-full font-semibold transition-colors duration-300"

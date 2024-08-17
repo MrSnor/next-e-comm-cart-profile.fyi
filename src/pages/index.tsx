@@ -22,7 +22,7 @@ export default function Home() {
     <div className="min-h-screen bg-my-background-1000 text-my-text-100">
       <div className="container mx-auto px-4">
         <header className="flex justify-between items-center py-3 sticky top-0 z-10 bg-my-background-1000">
-          <h1 className="text-4xl font-semibold capitalize select-none font-hahmlet bg-my-background-500 text-white px-4 py-2 rounded-lg">
+          <h1 className="text-xl sm:text-4xl font-semibold capitalize select-none font-hahmlet bg-my-background-500 text-white px-4 py-2 rounded-lg">
             D-Mart @ your service
           </h1>
           <Link

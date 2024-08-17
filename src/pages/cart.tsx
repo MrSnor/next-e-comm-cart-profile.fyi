@@ -174,7 +174,7 @@ export default function Cart() {
   return (
     <div className="min-h-screen bg-my-background-1000 text-my-text-100">
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-semibold mb-12 flex items-center justify-between">
+        <h1 className="text-3xl sm:text-4xl font-semibold mb-4 sm:mb-12 flex flex-col sm:flex-row items-center gap-2 whitespace-nowrap justify-between">
           Your Shopping Cart
           {/* button for clearing the cart */}
           <ClearCartButton clearCart={clearCart} products={products} />
@@ -230,7 +230,7 @@ export default function Cart() {
                 subTotal={cartSummary.subTotal}
               />
               {/* cart summary */}
-              <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg h-max  text-lg">
+              <div className="mt-0 bg-my-background-500 p-4 md:p-8 rounded-lg shadow-lg h-max  text-lg">
                 <h1 className="text-2xl font-semibold text-my-text-950 mb-4">
                   Cart Summary
                 </h1>
@@ -239,18 +239,19 @@ export default function Cart() {
                   <p className="font-normal whitespace-nowrap text-base">
                     Discount Code
                   </p>
-                  <input
-                    type="text"
-                    onKeyDown={handleDiscountCodeKeyDown}
-                    onChange={handleDiscountCodeChange}
-                    placeholder="Enter discount code"
-                    className="bg-my-background-900 text-my-text-100 px-4 py-1 rounded-full font-normal text-base uppercase
-                  placeholder:text-sm relative"
-                    maxLength={10}
-                  />
-                  <span className="text-sm text-my-text-800 absolute right-[5%] lg:right-[10%] top-10">
-                    (Press Enter to apply)
-                  </span>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      onKeyDown={handleDiscountCodeKeyDown}
+                      onChange={handleDiscountCodeChange}
+                      placeholder="coupon code"
+                      className="bg-my-background-900 text-my-text-100 px-2 md:px-4 py-1 rounded-full font-normal text-sm md:text-base uppercase placeholder:text-xs relative"
+                      maxLength={10}
+                    />
+                    <span className="text-sm text-my-text-800 absolute right-1/2 translate-x-1/2 top-8 md:top-10 whitespace-nowrap">
+                      (Press Enter to apply)
+                    </span>
+                  </div>
                   {/* show a tick or cross depending on whether or not the discount code is valid */}
                   {isDiscountCodeValid !== null && (
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xl rounded-full [&_svg]:rounded-full [&_svg]:w-5 [&_svg]:h-5 [&_svg]:p-1 ">
