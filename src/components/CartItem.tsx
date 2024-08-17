@@ -21,7 +21,7 @@ const CartItem = ({
       <div
         className={cn([
           // Base styles
-          "flex items-center justify-between bg-my-accent-950 p-6 py-2 rounded-lg shadow-md hover:shadow transition ease-in-out duration-300",
+          "flex items-center justify-between bg-white p-6 py-2 rounded-lg shadow-md hover:shadow transition ease-in-out duration-300",
           // Shared closed styles
           "data-[closed]:opacity-0",
           // Entering styles

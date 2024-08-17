@@ -194,7 +194,7 @@ export default function Cart() {
             )}
           >
             {/* cart items */}
-            <div className="space-y-6 w-full lg:w-3/5">
+            <div className="space-y-2 w-full lg:w-3/5 bg-my-accent-950 rounded-lg p-3 overflow-x-hidden max-h-[calc(100vh-10rem)] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar]:h-0 [&::-webkit-scrollbar-thumb]:bg-my-primary-600 [&::-webkit-scrollbar-track]:bg-my-accent-950 ">
               {products.map((product) => {
                 const quantity = cart[product.id];
 
