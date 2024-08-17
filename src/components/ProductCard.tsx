@@ -61,7 +61,7 @@ const AddToCartButton = ({
       type="button"
       aria-label="add-to-cart"
       onClick={() => addToCart(product.id)}
-      className="relative group mx-auto w-[40%] hover:w-full ring-[1.5px] ring-my-accent-800 bg-my-background-800 text-my-text-100 text-sm hover:text-my-text-950 px-4 py-2 rounded-full font-semibold hover:bg-my-background-600 transition-all duration-300"
+      className="relative group mx-auto w-[40%] hover:w-full ring-[1.5px] ring-my-accent-800 bg-my-background-800 text-my-text-100 text-sm hover:text-my-text-950 px-4 py-2 rounded-full font-semibold hover:bg-my-background-600 transition-all duration-300 text-nowrap whitespace-nowrap"
     >
       Add to Cart
       <div className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -86,7 +86,7 @@ const AddToCartButton = ({
 
 const AddedToCartButton = () => {
   return (
-    <button className="relative group mx-auto text-center w-full ring-[1.5px] ring-my-accent-800 bg-my-background-800  text-sm  px-4 py-2 rounded-full font-semibold transition-all duration-300 text-my-text-950 opacity-60 cursor-default">
+    <button className="relative group mx-auto text-center w-full ring-[1.5px] ring-my-accent-800 bg-my-background-800  text-sm  px-4 py-2 rounded-full font-semibold transition-all duration-300 text-my-text-950 opacity-60 cursor-default text-nowrap whitespace-nowrap">
       Added to Cart
     </button>
   );
