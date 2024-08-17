@@ -4,3 +4,9 @@ export interface Product {
   price: number;
   thumbnail: string;
 }
+
+export interface Discount {
+  code: string;
+  discountType: string;
+  discount: number;
+}

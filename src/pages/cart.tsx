@@ -5,21 +5,12 @@ import { Product } from "../types";
 import CartItem from "@/components/CartItem";
 import CountUp from "react-countup";
 import { Toaster, toast } from "sonner";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 import { cn } from "@/lib/utils";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/16/solid";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { TruckIcon, TicketIcon } from "@heroicons/react/24/outline";
+import { DeliveryChargeALert } from "@/components/DeliveryChargeALert";
+import { DiscountAlert } from "@/components/DiscountAlert";
+import { ClearCartButton } from "@/components/ClearCartButton";
 
 // constants for discount types
 const DISCOUNT_TYPES = {
@@ -74,6 +65,7 @@ export default function Cart() {
         case DISCOUNT_TYPES.PERCENTAGE:
           discount = subTotal * (discObj.discount / 100);
           toast.success(`You've saved $${discount.toFixed(2)} 🎉!`);
+          
           setIsDiscountCodeValid(true);
           break;
         case DISCOUNT_TYPES.FLAT:
@@ -230,7 +222,7 @@ export default function Cart() {
             </div>
             <div className="w-full lg:w-2/5 space-y-5">
               {/* discounts available */}
-              <DiscountAlert />
+              <DiscountAlert discountData={discountData} />
               {/* delivery charge info */}
               <DeliveryChargeALert
                 deliveryCharge={cartSummary.deliveryCharge}
@@ -346,92 +338,4 @@ export default function Cart() {
   );
 }
 
-function ClearCartButton({
-  clearCart,
-  products,
-}: {
-  clearCart: () => void;
-  products: Product[];
-}) {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <button
-          className="ml-auto w-max bg-my-background-100 hover:bg-red-500 text-my-text-900 hover:text-white px-4 py-2 rounded-full font-semibold text-base transition-colors duration-300 disabled:opacity-50 disabled:cursor-default disabled:hover:bg-my-background-100 disabled:hover:text-my-text-900"
-          disabled={products.length === 0}
-        >
-          Clear Cart
-        </button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Clear Cart</AlertDialogTitle>
-          <AlertDialogDescription>
-            Are you sure you want to clear your cart?
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={clearCart}
-            className="bg-my-primary-600 hover:bg-my-primary-500 px-6 py-2 rounded-full font-semibold transition-colors duration-300"
-          >
-            Clear
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
 
-function DiscountAlert() {
-  return (
-    <Alert className="border-0 ring-2 ring-my-accent-800 bg-my-accent-950">
-      <div>
-        <AlertTitle>
-          <TicketIcon className="w-6 h-6 inline-block" />
-        </AlertTitle>
-        <AlertDescription>
-          {discountData.map((item) => (
-            <div key={item.code} className="mt-2">
-              <span className="select-all selection:bg-my-background-700 selection:text-my-text-950 font-semibold">
-                {item.code}
-              </span>{" "}
-              -{" "}
-              {item.discountType === "percentage"
-                ? `${item.discount}% off`
-                : `$${item.discount} off`}
-            </div>
-          ))}
-        </AlertDescription>
-      </div>
-    </Alert>
-  );
-}
-
-function DeliveryChargeALert({
-  deliveryCharge,
-  subTotal,
-}: {
-  deliveryCharge: number;
-  subTotal: number;
-}) {
-  return (
-    <Alert className="border-0 ring-2 ring-my-accent-800 bg-my-accent-950">
-      <div>
-        <AlertDescription className="flex items-center gap-2">
-          <TruckIcon className="w-6 h-6 inline-block" />
-          {subTotal > 75 ? (
-            "Congrats! You get free standard shipping."
-          ) : (
-            <span>
-              You&apos;re{" "}
-              <CountUp start={0} end={75 - subTotal} preserveValue prefix="$" />{" "}
-              away from free shipping.
-            </span>
-          )}
-        </AlertDescription>
-      </div>
-    </Alert>
-  );
-}
