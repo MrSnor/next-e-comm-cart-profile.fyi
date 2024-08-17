@@ -118,17 +118,21 @@ export default function Cart() {
 
       switch (discObj?.discountType) {
         case DISCOUNT_TYPES.PERCENTAGE:
-          toast.success(`You've saved $${discObj.discount} 🎉!`);
+          toast.success(
+            `Coupon successfully applied for ${discObj.discount}% 🎉!`
+          );
           setIsDiscountCodeValid(true);
           break;
 
         case DISCOUNT_TYPES.FLAT:
-          toast.success(`You've saved $${discObj.discount} 🎉!`);
+          toast.success(
+            `Coupon successfully applied for upto $${discObj.discount} 🎉!`
+          );
           setIsDiscountCodeValid(true);
           break;
 
         default:
-          toast.error("Invalid discount coupon");
+          toast.error("Invalid discount coupon!");
           setIsDiscountCodeValid(false);
           break;
       }
