@@ -19,6 +19,7 @@ import {
 import { cn } from "@/lib/utils";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { TruckIcon, TicketIcon } from "@heroicons/react/24/outline";
 
 // constants for discount types
 const DISCOUNT_TYPES = {
@@ -230,6 +231,11 @@ export default function Cart() {
             <div className="w-full lg:w-2/5 space-y-5">
               {/* discounts available */}
               <DiscountAlert />
+              {/* delivery charge info */}
+              <DeliveryChargeALert
+                deliveryCharge={cartSummary.deliveryCharge}
+                subTotal={cartSummary.subTotal}
+              />
               {/* cart summary */}
               <div className="mt-0 bg-my-background-500 p-8 rounded-lg shadow-lg h-max  text-lg">
                 <h1 className="text-2xl font-semibold text-my-text-950 mb-4">
@@ -382,7 +388,9 @@ function DiscountAlert() {
   return (
     <Alert className="border-0 ring-2 ring-my-accent-800 bg-my-accent-950">
       <div>
-        <AlertTitle>Available Discount Coupons</AlertTitle>
+        <AlertTitle>
+          <TicketIcon className="w-6 h-6 inline-block" />
+        </AlertTitle>
         <AlertDescription>
           {discountData.map((item) => (
             <div key={item.code} className="mt-2">
@@ -395,6 +403,33 @@ function DiscountAlert() {
                 : `$${item.discount} off`}
             </div>
           ))}
+        </AlertDescription>
+      </div>
+    </Alert>
+  );
+}
+
+function DeliveryChargeALert({
+  deliveryCharge,
+  subTotal,
+}: {
+  deliveryCharge: number;
+  subTotal: number;
+}) {
+  return (
+    <Alert className="border-0 ring-2 ring-my-accent-800 bg-my-accent-950">
+      <div>
+        <AlertDescription className="flex items-center gap-2">
+          <TruckIcon className="w-6 h-6 inline-block" />
+          {subTotal > 75 ? (
+            "Congrats! You get free standard shipping."
+          ) : (
+            <span>
+              You&apos;re{" "}
+              <CountUp start={0} end={75 - subTotal} preserveValue prefix="$" />{" "}
+              away from free shipping.
+            </span>
+          )}
         </AlertDescription>
       </div>
     </Alert>
