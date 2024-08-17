@@ -290,7 +290,11 @@ export default function Cart() {
                 </p>
 
                 {/* proceed to checkout button */}
-                <button className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-lg hover:bg-[#0c0c03] transition-colors duration-300">
+                <button className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-lg hover:bg-[#0c0c03] transition-colors duration-300"
+                onClick={() => {
+                  toast.warning("Server is under construction. Thank you for your patience!");
+                }}
+                >
                   Proceed to Checkout
                 </button>
               </div>
