@@ -55,6 +55,7 @@ export default function Cart() {
     subTotal: 0,
     discount: 0,
     total: 0,
+    deliveryCharge: 0,
   });
 
   const calculateSubtotal = (): number => {
@@ -96,12 +97,24 @@ export default function Cart() {
     return discount;
   };
 
+  const applyDeliveryCharge = (subTotal: number): number => {
+    let deliveryCharge = 0;
+    if (subTotal > 75) {
+      deliveryCharge = 0;
+    } else {
+      deliveryCharge = 50;
+    }
+
+    return deliveryCharge;
+  };
+
   const updateCartSummary = (disCode: string = "") => {
     const subTotal = calculateSubtotal();
     const discount = applyDiscount(subTotal, disCode);
-    const total = subTotal - discount;
+    const deliveryCharge = applyDeliveryCharge(subTotal);
+    const total = subTotal - discount + deliveryCharge;
 
-    setCartSummary({ subTotal, discount, total });
+    setCartSummary({ subTotal, discount, deliveryCharge, total });
   };
 
   // handle discount code updates
@@ -277,6 +290,17 @@ export default function Cart() {
                   </p>
                 }
 
+                {/* delivery */}
+                <p className="text-base mb-4 text-my-text-950 flex items-center justify-between">
+                  Delivery{" "}
+                  <CountUp
+                    start={0}
+                    end={cartSummary.deliveryCharge}
+                    preserveValue
+                    prefix="$"
+                  />
+                </p>
+
                 {/* total */}
                 <p className="mb-4 text-my-text-950 flex items-center justify-between text-xl">
                   Total{" "}
@@ -290,10 +314,13 @@ export default function Cart() {
                 </p>
 
                 {/* proceed to checkout button */}
-                <button className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-lg hover:bg-[#0c0c03] transition-colors duration-300"
-                onClick={() => {
-                  toast.warning("Server is under construction. Thank you for your patience!");
-                }}
+                <button
+                  className="w-full bg-black text-my-text-900 px-6 py-3 rounded-full font-semibold text-lg hover:bg-[#0c0c03] transition-colors duration-300"
+                  onClick={() => {
+                    toast.warning(
+                      "Server is under construction. Thank you for your patience!"
+                    );
+                  }}
                 >
                   Proceed to Checkout
                 </button>
